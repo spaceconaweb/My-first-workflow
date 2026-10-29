@@ -1,0 +1,39 @@
+{
+  "name": "Auto-Save Workflows to Local Folder",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": "={{$workflow.id}}",
+        "value": "backup"
+      },
+      "type": "n8n-nodes-base.trigger",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "id": "trigger-node",
+      "name": "On Workflow Saved"
+    },
+    {
+      "parameters": {
+        "command": "=echo '{{JSON.stringify($json)}}' > C:/Users/blue/Desktop/legalflow-intake-agent/workflow.json"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [450, 300],
+      "id": "exec-node",
+      "name": "Write File to VS Code Folder"
+    }
+  ],
+  "connections": {
+    "On Workflow Saved": {
+      "main": [
+        [
+          {
+            "node": "Write File to VS Code Folder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}
